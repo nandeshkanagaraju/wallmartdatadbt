@@ -9,9 +9,16 @@ wheels/
 # Virtual environments
 .venv
 
-# Secrets / credentials — never commit
+# Secrets / credentials
 .env
-connection
+.env.*
+
+# Editor directories
+.vscode/
 
 # macOS
 .DS_Store
+
+# Logs
+logs/
+

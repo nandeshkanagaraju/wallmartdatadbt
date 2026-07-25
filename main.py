@@ -1,5 +1,5 @@
 def main():
-    print("Hello from wallmartdataproject!")
+    print("Hello from wallmartdatadbt!")
 
 
 if __name__ == "__main__":
