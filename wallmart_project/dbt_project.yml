@@ -39,3 +39,10 @@ models:
       +materialized: table
       +schema: silver_b
       +database: walmart
+    gold:
+      +materialized: table
+      +schema: gold
+      +database: walmart
+      ephemeral:
+        +materialized: ephemeral
+
