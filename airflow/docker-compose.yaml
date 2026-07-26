@@ -224,6 +224,21 @@ services:
           echo
           export AIRFLOW_UID=$$(id -u)
         fi
+
+        echo "Waiting for postgres to be ready..."
+        until python -c 'import sys, psycopg2; conn = psycopg2.connect(dbname="airflow", user="airflow", password="airflow", host="postgres", port=5432); conn.close(); sys.exit(0)' 2>/dev/null
+        do
+          echo "Postgres is not ready yet; retrying in 2 seconds..."
+          sleep 2
+        done
+
+        echo "Waiting for redis to be ready..."
+        until python -c 'import socket, sys; s = socket.socket(); s.settimeout(2); s.connect(("redis", 6379)); sys.exit(0)' 2>/dev/null
+        do
+          echo "Redis is not ready yet; retrying in 2 seconds..."
+          sleep 2
+        done
+
         one_meg=1048576
         mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
         cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
